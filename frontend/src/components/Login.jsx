@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Menu } from './Menu';
 import cuaderno from './cuaderno.png';
 import image1 from './image1.jpg';
 import image2 from './image2.jpg';
@@ -6,17 +8,22 @@ import image3 from './image3.jpg';
 import image5 from './image5.jpeg';
 
 export const Login = () => {
+    const navigate = useNavigate();
+
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [boxBorderColor, setBoxBorderColor] = useState(getRandomRGBColor()); // Inicialmente, color de borde aleatorio
+    const [boxBorderColor, setBoxBorderColor] = useState(getRandomRGBColor());
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        if (username.trim() === "" || password.trim() === "") {
-            alert("Both fields must be filled");
-<<<<<<< HEAD
-=======
+    async function login({ username, password }) {
+        const response = await fetch('https://localhost:4000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
         } else {
             try {
                 const result = await login({ username, password });
@@ -26,17 +33,31 @@ export const Login = () => {
             } catch (error) {
                 console.error(error); // Aquí puedes manejar errores de la llamada a la API
             }
->>>>>>> 948d131 (nuevo)
+        }
+
+        const data = await response.json();
+        return data;
+    }
+
+      const handleLogin = async (event) => {
+        event.preventDefault();
+        if (username.trim() === "" || password.trim() === "") {
+            alert("Both fields must be filled");
+        } else {
+            try {
+                const result = await login({ username, password });
+                if (result===login({ username, password })) { // Reemplaza esto con la condición que determine un inicio de sesión exitoso
+                    navigate("/menu"); // Navega a la ruta del menú
+                }
+            } catch (error) {
+                console.error(error); // Aquí puedes manejar errores de la llamada a la API
+            }
         }
     };
 
     const handleSignUp = (event) => {
         event.preventDefault();
-        if (username.trim() === "" || password.trim() === "") {
-            alert("Both fields must be filled");
-        } else {
-            alert("Sign Up successful!");
-        }
+        navigate("/signup"); // Navega a la ruta del registro
     };
 
     const changeBoxBorderColor = () => {
@@ -151,6 +172,7 @@ export const Login = () => {
                             type="submit"
                             className="btn btn-primary"
                             value="Login"
+                            onClick={handleLogin}
                             style={{
                                 width: '100%',
                                 padding: 15,
@@ -202,6 +224,7 @@ export const Login = () => {
                         </button>
                     </div>
                 </form>
+                
            </div>
             <div
                 style={{
@@ -217,4 +240,4 @@ export const Login = () => {
             />
         </div>
     );
-};
+;
