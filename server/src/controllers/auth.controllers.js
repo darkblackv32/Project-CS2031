@@ -8,30 +8,31 @@ export const register = async (req, res) => {
     try {
         
         const userFound = await User.findOne({username});
-        if(userFound)
-          return res.status(400).json(['The username already exists'])  
+        if(userFound) return res.status(400).json(['The username already exists'])
 
         const pass_hash = await bcrypt.hash(password, 8)
 
         const newUser = new User({
             username,
             password : pass_hash,
-    });
+        });
 
-    const userSaved = await newUser.save();
-    const token = await createAccessToken({id: userSaved._id});
+        const userSaved = await newUser.save();
+        console.log(userSaved)
+        const token = await createAccessToken({id: userSaved._id});
+
+        res.cookie('token', token)
+            res.json({
+                id: userSaved._id,
+                username: userSaved.username,
+                createdAt: userSaved.createdAt,
+                updatedAt: userSaved.updatedAt,
+            });
     
-    res.cookie('token', token)
-        res.json({
-            id: userSaved._id,
-            username: userSaved.username,
-            createdAt: userSaved.createdAt,
-            updatedAt: userSaved.updatedAt,
-    });
-    
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 export const login = async (req, res) => {
