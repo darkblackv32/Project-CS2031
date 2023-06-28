@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import cuaderno from './cuaderno.png';
 import image1 from './image1.jpg';
 import image2 from './image2.jpg';
@@ -27,8 +27,7 @@ export const Login = () => {
           throw new Error(`Login API call failed with status ${response.status}`);
         }
 
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
 
       const handleLogin = async (event) => {
@@ -38,7 +37,7 @@ export const Login = () => {
         } else {
             try {
                 const result = await login({ username, password });
-                if (result===login({ username, password })) { // Reemplaza esto con la condición que determine un inicio de sesión exitoso
+                if (result) { // Reemplaza esto con la condición que determine un inicio de sesión exitoso
                     navigate("/menu"); // Navega a la ruta del menú
                 }
             } catch (error) {

@@ -49,17 +49,18 @@ export const login = async (req, res) => {
 
     const token = await createAccessToken({id: userFound._id});
 
-  res.cookie('token', token)
-      res.json({
-          id: userFound._id,
-          username: userFound.username,
-          createdAt: userFound.createdAt,
-          updatedAt: userFound.updatedAt,
-  });
+    res.cookie('token', token)
+    res.json({
+        id: userFound._id,
+        username: userFound.username,
+        createdAt: userFound.createdAt,
+        updatedAt: userFound.updatedAt,
+    });
   
-} catch (error) {
-  res.status(500).json({ message: error.message });
-}
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 
