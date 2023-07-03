@@ -4,35 +4,20 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
-// import taksRoutes from "./routes/tasks.routes.js";
-import taksRoutes from "./routes/books.routes.js";
-import { FRONTEND_URL } from "./config.js";
+import booksRoutes from "./routes/books.routes.js";
 
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: FRONTEND_URL,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-// app.use("/api/auth", authRoutes);
-app.use("/bbuddy/auth", authRoutes);
-// app.use("/api", taksRoutes);
-app.use("/bbuddy", taksRoutes);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
-if (process.env.NODE_ENV === "production") {
-  const path = await import("path");
-  app.use(express.static("client/dist"));
-
-  app.get("*", (req, res) => {
-    console.log(path.resolve("client", "dist", "index.html") );
-    res.sendFile(path.resolve("client", "dist", "index.html"));
-  });
-}
+app.use('/auth', authRoutes);
+app.use('/books', booksRoutes);
 
 export default app;
