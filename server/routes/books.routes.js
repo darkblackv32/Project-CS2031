@@ -5,7 +5,7 @@ import {
   getBook,
   getBooks,
   updateBook,
-} from "../controllers/books.controllers.js";
+} from "../controllers/books.controller.js";
 import { auth } from "../middlewares/auth.middleware.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 import { createBookSchema } from "../schemas/book.schema.js";
