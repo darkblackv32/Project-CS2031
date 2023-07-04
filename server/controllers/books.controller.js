@@ -26,9 +26,6 @@ export const createBook = async (req, res) => {
   }
 };
 
-
-
-
 export const deleteBook = async (req, res) => {
   try {
     const deletedBook = await Book.findByIdAndDelete(req.params.id);

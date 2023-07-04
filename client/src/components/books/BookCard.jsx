@@ -13,17 +13,16 @@ export function BookCard({ book }) {
           <ButtonLink to={`/books/${book._id}`}>Edit</ButtonLink>
         </div>
       </header>
-      <p className="text-slate-300" style={{ fontSize: 'larger' }}>{book.author}</p>
-
+      <p className="text-slate-300">{book.description}</p>
+      {/* format date */}
       <p>
-        {/* {book.date &&
+        {book.date &&
           new Date(book.date).toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
             month: "long",
             day: "numeric",
-          })} */}
-        <p className="text-slate-300" style={{ fontSize: 'larger', textAlign: 'right' }}>{book.status ? 'Available' : 'Unavailable'}</p>
+          })}
       </p>
     </Card>
   );

@@ -72,8 +72,7 @@ export function BookFormPage() {
         setValue("status", book.status);
         setValue(
           "date",
-          // book.date ? dayjs(book.date).utc().format("YYYY-createBookRequest") : ""
-          book.date ? dayjs(book.date).utc().format("DD-MM-YYYY") : ""
+          book.date ? dayjs(book.date).utc().format("YYYY-MM-DD") : ""
         );
         setValue("completed", book.completed);
       }

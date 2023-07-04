@@ -2,12 +2,12 @@ import { z } from "zod";
 
 export const createBookSchema = z.object({
     author: z.string({
-      required_error: "Author is required",
+      required_error: "Title is required",
     }),
-    title : z.string({
+    tile : z.string({
         required_error: "Title is required",
     }),
-    status: z.boolean().optional(),
+    status: z.string().optional(),
     date: z.string().datetime().optional(),
   });
   

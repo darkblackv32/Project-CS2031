@@ -41,8 +41,6 @@ export function BookProvider({ children }) {
     }
   };
 
-   
-
   const getBook = async (id) => {
     try {
       const res = await getBookRequest(id);
