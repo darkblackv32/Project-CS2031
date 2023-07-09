@@ -30,10 +30,7 @@ import booksRoutes from "./routes/books.routes.js";
 
 const app = express();
 
-const corsOptions = {
-  origin: 'http://localhost:5173', 
-  credentials: true, 
-}
+const corsOptions = { origin: true, credentials: true }
 
 app.use(cookieParser())
 app.use(cors(corsOptions)); 
