@@ -9,6 +9,17 @@ export const getBooks = async (req, res) => {
   }
 };
 
+
+export const getAllBooks = async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.json(books);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+
 export const createBook = async (req, res) => {
   try {
     const { author, title, status, date } = req.body;
@@ -25,8 +36,6 @@ export const createBook = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
-
 
 
 export const deleteBook = async (req, res) => {

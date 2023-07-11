@@ -1,9 +1,8 @@
-
-
 import { Router } from "express";
 import {
   createBook,
   deleteBook,
+  getAllBooks,
   getBook,
   getBooks,
   updateBook,
@@ -14,6 +13,8 @@ import { createBookSchema } from "../schemas/book.schema.js";
 
 const router = Router();
 
+router.get("/all", getAllBooks);
+
 router.get("/", auth, getBooks);
 
 router.post("/", auth, validateSchema(createBookSchema), createBook);
@@ -23,5 +24,6 @@ router.get("/:id", auth, getBook);
 router.put("/:id", auth, updateBook);
 
 router.delete("/:id", auth, deleteBook);
+
 
 export default router;
