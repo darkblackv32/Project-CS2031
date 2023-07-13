@@ -53,16 +53,24 @@ export const updateBook = async (req, res) => {
   }
 };
 
+let booksCache = null;
+let cacheTimestamp = null;
+const CACHE_INVALIDATION_DURATION = 30 * 1000; // 30 seg
 
 export const getAllBooks = async (req, res) => {
   try {
+    if (booksCache && (Date.now() - cacheTimestamp < CACHE_INVALIDATION_DURATION)) {
+      return res.json(booksCache);
+    }
     const books = await Book.find().populate('user');
+    // Cache data and update timestamp
+    booksCache = books;
+    cacheTimestamp = Date.now();
     res.json(books);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-
 export const getBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id).populate('user');
