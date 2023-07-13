@@ -5,6 +5,7 @@ import {
   getBooksRequest,
   getBookRequest,
   updateBookRequest,
+  getLoanBooksRequest,
 } from "../bbuddy/books";
 
 const BookContext = createContext();
@@ -60,14 +61,14 @@ export function BookProvider({ children }) {
     }
   };
 
-  const getLoanBooks = async (book) => {
+  const getLoanBooks = async () => {
     try {
-      await getLoanBooks(book);
+      const res = await getLoanBooksRequest(); // function that sends a request to your backend
+      return res.data;
     } catch (error) {
       console.error(error);
     }
   };
-
 
   return (
     <BookContext.Provider

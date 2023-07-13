@@ -1,7 +1,7 @@
 import { useBooks } from "../../context/booksContext";
 import { Button, ButtonLink, Card } from "../../components/ui";
 
-export function BookCard({ book }) {
+export function GlobalBookCard({ book }) {
   const { deleteBook } = useBooks();
 
   return (
@@ -9,8 +9,8 @@ export function BookCard({ book }) {
       <header className="flex justify-between">
         <h1 className="text-2xl font-bold">{book.title}</h1>
         <div className="flex gap-x-2 items-center">
-          <Button onClick={() => deleteBook(book._id)}>Delete</Button>
-          <ButtonLink to={`/books/${book._id}`}>Edit</ButtonLink>
+          <Button onClick={() => deleteBook(book._id)}>Request</Button>
+          <ButtonLink to={`/books/${book._id}`}>Save</ButtonLink>
         </div>
       </header>
       <p className="text-slate-300" style={{ fontSize: 'larger' }}>{book.author}</p>
